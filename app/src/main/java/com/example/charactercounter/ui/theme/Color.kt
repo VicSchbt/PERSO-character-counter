@@ -21,7 +21,9 @@ val Neutral0 = Color(0xffffffff)
 val Purple400 = Color(0xffd3a0fa)
 val Purple500 = Color(0xffc27cf8)
 
+val Yellow400 = Color(0xFFFFB844)
 val Yellow500 = Color(0xffff9f00)
 
+val Orange400 = Color(0xFFFA9A82)
 val Orange500 = Color(0xfffe8159)
 val Orange800 = Color(0xffda3701)

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Character Counter</string>
+    <string name="header_logo_description">Logo Character Counter\n</string>
+    <string name="header_title">Analyze your text in real-time.</string>
+
+    <string name="result_tile_characters">Total Characters</string>
+    <string name="result_tile_word">Word Count</string>
+    <string name="result_tile_sentence">Sentence Count</string>
 </resources>
