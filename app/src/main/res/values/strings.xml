@@ -1,9 +1,21 @@
 <resources>
     <string name="app_name">Character Counter</string>
-    <string name="header_logo_description">Logo Character Counter\n</string>
+    <string name="header_logo_description">Logo Character Counter</string>
     <string name="header_title">Analyze your text in real-time.</string>
+
+    <string name="see_more">See more</string>
+    <string name="see_less">See less</string>
 
     <string name="result_tile_characters">Total Characters</string>
     <string name="result_tile_word">Word Count</string>
     <string name="result_tile_sentence">Sentence Count</string>
+
+    <string name="text_input_placeholder">Start typing here… (or paste your text)</string>
+
+    <string name="text_input_character_limit">Set Character Limit</string>
+    <string name="text_input_character_limit_error">Limit reached! Your text exceeds %1$d characters.</string>
+    <string name="text_input_exclude_spaces">Exclude Spaces</string>
+
+    <string name="letter_density_label">Letter Density</string>
+    <string name="letter_density_placeholder">No characters found. Start typing to see letter density.</string>
 </resources>

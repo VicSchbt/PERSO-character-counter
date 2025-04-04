@@ -2,6 +2,7 @@ package com.example.charactercounter.counting.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
@@ -19,19 +20,14 @@ import com.example.charactercounter.ui.theme.CharacterCounterTheme
 
 @Composable
 fun Header(modifier: Modifier) {
-    Column(
-        modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(40.dp)
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(16.dp),
     ) {
         Icon(
             painter = painterResource(R.drawable.logo_light_theme),
-            contentDescription = stringResource(R.string.header_logo_description),
-            modifier = Modifier.padding(16.dp)
-        )
-        Text(
-            text = stringResource(R.string.header_title),
-            style = MaterialTheme.typography.titleLarge,
-            textAlign = TextAlign.Center
+            contentDescription = stringResource(R.string.header_logo_description)
         )
     }
 }

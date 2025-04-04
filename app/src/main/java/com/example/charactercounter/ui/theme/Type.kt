@@ -57,13 +57,7 @@ val textPreset4 = TextStyle(
 
 // Set of Material typography styles to start with
 val Typography = Typography(
-    bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
-    ),
+    bodyLarge = textPreset3,
     titleLarge = textPreset1,
     labelLarge = textPreset1,
     labelMedium = textPreset3

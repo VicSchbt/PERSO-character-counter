@@ -1,8 +1,5 @@
 package com.example.charactercounter.counting.presentation.components
 
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,29 +15,20 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.example.charactercounter.R
+import com.example.charactercounter.counting.presentation.components.config.ResultTileConfig
 import com.example.charactercounter.ui.theme.CharacterCounterTheme
-import com.example.charactercounter.ui.theme.Orange400
-import com.example.charactercounter.ui.theme.Orange500
-import com.example.charactercounter.ui.theme.Orange800
-import com.example.charactercounter.ui.theme.Purple400
-import com.example.charactercounter.ui.theme.Purple500
-import com.example.charactercounter.ui.theme.Yellow400
-import com.example.charactercounter.ui.theme.Yellow500
 
 @Composable
 fun ResultTile(
     value: Int,
-    @StringRes labelRes: Int,
-    @DrawableRes bgImageRes: Int,
-    bgColor: Color,
-    bgImageTint: Color
+    config: ResultTileConfig
 ) {
     Row(
         modifier = Modifier
@@ -48,8 +36,9 @@ fun ResultTile(
             .fillMaxWidth()
             .background(
                 shape = RoundedCornerShape(12.dp),
-                color = bgColor
-            ),
+                color = config.bgColor
+            )
+            .clip(shape = RoundedCornerShape(12.dp)),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Column(
@@ -62,29 +51,26 @@ fun ResultTile(
                 style = MaterialTheme.typography.labelLarge
             )
             Text(
-                text = stringResource(labelRes),
+                text = stringResource(config.labelRes),
                 style = MaterialTheme.typography.labelMedium
             )
         }
         Icon(
             modifier = Modifier.scale(1.3f).offset(x = 30.dp),
-            painter = painterResource(bgImageRes),
+            painter = painterResource(config.bgImageRes),
             contentDescription = null,
-            tint = bgImageTint
+            tint = config.bgImageTint
         )
     }
 }
 
-@PreviewLightDark
+@Preview(showBackground = true)
 @Composable
 fun ResultTileCharacterPreview() {
     CharacterCounterTheme {
         ResultTile(
             value = 279,
-            labelRes = R.string.result_tile_characters,
-            bgImageRes = R.drawable.pattern_character_count,
-            bgColor = Purple500,
-            bgImageTint = Purple400
+            config = ResultTileConfig.CHARACTER
         )
     }
 }
@@ -95,10 +81,7 @@ fun ResultTileWordPreview() {
     CharacterCounterTheme {
         ResultTile(
             value = 39,
-            labelRes = R.string.result_tile_word,
-            bgImageRes = R.drawable.pattern_word_count,
-            bgColor = Yellow500,
-            bgImageTint = Yellow400
+            config = ResultTileConfig.WORD
         )
     }
 }
@@ -109,10 +92,7 @@ fun ResultTileSentencePreview() {
     CharacterCounterTheme {
         ResultTile(
             value = 4,
-            labelRes = R.string.result_tile_sentence,
-            bgImageRes = R.drawable.pattern_sentence_count,
-            bgColor = Orange500,
-            bgImageTint = Orange400
+            config = ResultTileConfig.SENTENCE
         )
     }
 }
