@@ -1,6 +1,5 @@
 package com.example.charactercounter.counting.presentation
 
-import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.example.charactercounter.counting.presentation.components.Header
 import com.example.charactercounter.counting.presentation.components.ResultTile
 import com.example.charactercounter.counting.presentation.components.TextInput
+import com.example.charactercounter.counting.presentation.components.TextOptions
 import com.example.charactercounter.counting.presentation.components.Title
 import com.example.charactercounter.counting.presentation.components.config.ResultTileConfig
 import com.example.charactercounter.ui.theme.CharacterCounterTheme
@@ -25,8 +25,6 @@ fun CharacterCounterScreen(
     onAction: (CharacterCounterAction) -> Unit,
     modifier: Modifier = Modifier
 ) {
-
-
     Column(
         modifier = modifier
             .padding(16.dp)
@@ -35,12 +33,28 @@ fun CharacterCounterScreen(
     ) {
         Header(modifier = Modifier)
         Title(modifier = Modifier)
-        TextInput(
-            modifier = Modifier.fillMaxWidth()
-                .requiredHeight(200.dp),
-            textValue = state.textToAnalyse,
-            onTextValueChange = {onAction(CharacterCounterAction.OnTextChange(it))}
-        )
+        Column(
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            TextInput(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .requiredHeight(200.dp),
+                textValue = state.textToAnalyse,
+                onTextValueChange = { onAction(CharacterCounterAction.OnTextChange(it)) }
+            )
+            TextOptions(
+                isBlankSpaceExcluded = state.isBlankSpaceExcluded,
+                onIsBlankSpaceExcludedChange = {
+                    onAction(
+                        CharacterCounterAction.OnIsBlankSpaceExcludedChange(
+                            it
+                        )
+                    )
+                }
+            )
+        }
+
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {

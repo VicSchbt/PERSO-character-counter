@@ -6,8 +6,9 @@ data class TextAnalysisResult(
     val sentenceCount: Int
 ) {
     companion object {
-        fun from(text: String): TextAnalysisResult {
-            val characterCount = text.length
+        fun from(text: String, isBlankSpaceExcluded: Boolean): TextAnalysisResult {
+            val characterCount = if (isBlankSpaceExcluded) text.trim().split("\\s+".toRegex())
+                .joinToString("").length else text.length
 
             val wordCount = text
                 .trim() // Removes leading/trailing spaces

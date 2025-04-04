@@ -12,16 +12,22 @@ class CharacterCounterViewModel: ViewModel() {
     fun onAction(action: CharacterCounterAction) {
         when(action) {
             is CharacterCounterAction.OnTextChange -> onTextChange(action.newText)
+            is CharacterCounterAction.OnIsBlankSpaceExcludedChange -> onTextOptionChange(action.isExcluded)
         }
     }
 
     private fun onTextChange(newText: String) {
-        val analysis = TextAnalysisResult.from(newText)
+        val analysis = TextAnalysisResult.from(newText, _state.value.isBlankSpaceExcluded)
         _state.value = _state.value.copy(
             textToAnalyse = newText,
             characterCount = analysis.characterCount,
             wordCount = analysis.wordCount,
             sentenceCount = analysis.sentenceCount
         )
+    }
+
+    private fun onTextOptionChange(isBlankSpaceExcluded: Boolean) {
+        _state.value = _state.value.copy(isBlankSpaceExcluded = isBlankSpaceExcluded)
+        onTextChange(_state.value.textToAnalyse)
     }
 }
