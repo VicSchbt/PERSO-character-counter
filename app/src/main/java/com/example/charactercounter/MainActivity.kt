@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -23,6 +25,7 @@ import com.example.charactercounter.counting.presentation.CharacterCounterViewMo
 import com.example.charactercounter.ui.theme.CharacterCounterTheme
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -45,10 +48,12 @@ class MainActivity : ComponentActivity() {
                         .fillMaxSize()
                         .background(Color.Transparent)
                 ) { innerPadding ->
+                    val windowSize = calculateWindowSizeClass(this)
                     CharacterCounterScreen(
                         state = state,
                         onAction = characterCounterViewModel::onAction,
-                        modifier = Modifier.padding(innerPadding)
+                        modifier = Modifier.padding(innerPadding),
+                        windowSize = windowSize.widthSizeClass
                     )
                 }
             }

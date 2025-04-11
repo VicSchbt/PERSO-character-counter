@@ -3,7 +3,6 @@ package com.example.charactercounter.counting.presentation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
@@ -12,6 +11,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,7 +33,8 @@ import com.example.charactercounter.ui.theme.Orange800
 fun CharacterCounterScreen(
     state: CharacterCounterState,
     onAction: (CharacterCounterAction) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    windowSize: WindowWidthSizeClass
 ) {
     Column(
         modifier = modifier
@@ -69,23 +70,40 @@ fun CharacterCounterScreen(
             )
         }
 
-        Column(
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            ResultTile(
-                value = state.characterCount,
-                config = ResultTileConfig.CHARACTER
-            )
-            ResultTile(
-                value = state.wordCount,
-                config = ResultTileConfig.WORD
-            )
-            ResultTile(
-                value = state.sentenceCount,
-                config = ResultTileConfig.SENTENCE
-            )
+        if (windowSize == WindowWidthSizeClass.Compact) {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                ResultTiles(state, modifier = Modifier.fillMaxWidth())
+            }
+        } else {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                ResultTiles(state, modifier= Modifier.weight(1/3f))
+            }
         }
+
     }
+}
+
+@Composable
+private fun ResultTiles(state: CharacterCounterState, modifier: Modifier = Modifier) {
+    ResultTile(
+        value = state.characterCount,
+        config = ResultTileConfig.CHARACTER,
+        modifier = modifier
+    )
+    ResultTile(
+        value = state.wordCount,
+        config = ResultTileConfig.WORD,
+        modifier = modifier
+    )
+    ResultTile(
+        value = state.sentenceCount,
+        config = ResultTileConfig.SENTENCE,
+        modifier = modifier
+    )
 }
 
 @Composable
@@ -126,7 +144,8 @@ fun CharacterCounterScreenPreview() {
                 characterLimit = 300
             ),
             {},
-            modifier = Modifier
+            modifier = Modifier,
+            windowSize = WindowWidthSizeClass.Compact
         )
     }
 }
