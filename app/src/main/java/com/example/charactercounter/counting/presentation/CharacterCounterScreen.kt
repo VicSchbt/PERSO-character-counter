@@ -48,41 +48,69 @@ fun CharacterCounterScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             UserTextInput(state, onAction)
-            TextOptions(
-                isBlankSpaceExcluded = state.isBlankSpaceExcluded,
-                onIsBlankSpaceExcludedChange = {
-                    onAction(
-                        CharacterCounterAction.OnIsBlankSpaceExcludedChange(it)
-                    )
-                },
-                isCharacterLimitEnabled = state.isCharacterLimitEnabled,
-                onCharacterLimitEnabledChange = {
-                    onAction(
-                        CharacterCounterAction.OnCharacterLimitEnabledChange(it)
-                    )
-                },
-                characterLimit = state.characterLimit?.toString().orEmpty(),
-                onCharacterLimitChange = {
-                    onAction(
-                        CharacterCounterAction.OnCharacterLimitChange(it)
+            if (windowSize == WindowWidthSizeClass.Compact) {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    TextOptions(
+                        isBlankSpaceExcluded = state.isBlankSpaceExcluded,
+                        onIsBlankSpaceExcludedChange = {
+                            onAction(
+                                CharacterCounterAction.OnIsBlankSpaceExcludedChange(it)
+                            )
+                        },
+                        isCharacterLimitEnabled = state.isCharacterLimitEnabled,
+                        onCharacterLimitEnabledChange = {
+                            onAction(
+                                CharacterCounterAction.OnCharacterLimitEnabledChange(it)
+                            )
+                        },
+                        characterLimit = state.characterLimit?.toString().orEmpty(),
+                        onCharacterLimitChange = {
+                            onAction(
+                                CharacterCounterAction.OnCharacterLimitChange(it)
+                            )
+                        }
                     )
                 }
-            )
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    ResultTiles(state, modifier = Modifier.fillMaxWidth())
+                }
+            } else {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(24.dp)
+                ) {
+                    TextOptions(
+                        isBlankSpaceExcluded = state.isBlankSpaceExcluded,
+                        onIsBlankSpaceExcludedChange = {
+                            onAction(
+                                CharacterCounterAction.OnIsBlankSpaceExcludedChange(it)
+                            )
+                        },
+                        isCharacterLimitEnabled = state.isCharacterLimitEnabled,
+                        onCharacterLimitEnabledChange = {
+                            onAction(
+                                CharacterCounterAction.OnCharacterLimitEnabledChange(it)
+                            )
+                        },
+                        characterLimit = state.characterLimit?.toString().orEmpty(),
+                        onCharacterLimitChange = {
+                            onAction(
+                                CharacterCounterAction.OnCharacterLimitChange(it)
+                            )
+                        }
+                    )
+                }
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    ResultTiles(state, modifier = Modifier.weight(1 / 3f))
+                }
+            }
         }
 
-        if (windowSize == WindowWidthSizeClass.Compact) {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                ResultTiles(state, modifier = Modifier.fillMaxWidth())
-            }
-        } else {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                ResultTiles(state, modifier= Modifier.weight(1/3f))
-            }
-        }
 
     }
 }
@@ -119,15 +147,20 @@ private fun UserTextInput(
         onTextValueChange = { onAction(CharacterCounterAction.OnTextChange(it)) }
     )
     if (state.isLimitExceeded && state.characterLimit != null) {
-        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
             Icon(
                 painter = painterResource(R.drawable.icon_info),
                 contentDescription = "warning icon",
                 tint = Orange800
             )
-            Text(text= stringResource(R.string.text_input_character_limit_error, state.exceed),
+            Text(
+                text = stringResource(R.string.text_input_character_limit_error, state.exceed),
                 style = MaterialTheme.typography.labelSmall,
-                color = Orange800)
+                color = Orange800
+            )
         }
     }
 }

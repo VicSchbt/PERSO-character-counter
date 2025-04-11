@@ -41,17 +41,19 @@ import com.example.charactercounter.ui.theme.Purple400
 
 @Composable
 fun TextOptions(
+    modifier: Modifier = Modifier,
     isBlankSpaceExcluded: Boolean = true,
     onIsBlankSpaceExcludedChange: (Boolean) -> Unit,
     isCharacterLimitEnabled: Boolean,
     onCharacterLimitEnabledChange: (Boolean) -> Unit,
     characterLimit: String,
-    onCharacterLimitChange: (String) -> Unit
+    onCharacterLimitChange: (String) -> Unit,
 ) {
     LabelledCheckbox(
         label = stringResource(R.string.text_input_exclude_spaces),
         checked = isBlankSpaceExcluded,
-        onCheckedChange = { onIsBlankSpaceExcludedChange(it) }
+        onCheckedChange = { onIsBlankSpaceExcludedChange(it) },
+        modifier = modifier
     )
     LabelledCheckboxWithTextField(
         label = stringResource(R.string.text_input_character_limit),
@@ -59,6 +61,7 @@ fun TextOptions(
         onCheckedChange = onCharacterLimitEnabledChange,
         textValue = characterLimit,
         onTextValueChange = onCharacterLimitChange,
+        modifier = modifier
     )
 
 }
@@ -127,7 +130,6 @@ private fun CheckboxRowContent(
 ) {
     Row(
         modifier = modifier
-            .fillMaxWidth()
             .selectable(
                 selected = checked,
                 onClick = { onCheckedChange(!checked) },
