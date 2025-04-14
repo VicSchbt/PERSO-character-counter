@@ -21,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.charactercounter.R
 import com.example.charactercounter.counting.presentation.components.Header
+import com.example.charactercounter.counting.presentation.components.LetterDensity
 import com.example.charactercounter.counting.presentation.components.ResultTile
 import com.example.charactercounter.counting.presentation.components.TextInput
 import com.example.charactercounter.counting.presentation.components.TextOptions
@@ -118,6 +119,13 @@ fun CharacterCounterScreen(
                     ResultTiles(state, modifier = Modifier.weight(1 / 3f))
                 }
             }
+            if (state.totalLetter > 0) {
+                LetterDensity(
+                    letterDensity = state.letterDensity,
+                    totalLetter = state.totalLetter
+                )
+            }
+
         }
 
 

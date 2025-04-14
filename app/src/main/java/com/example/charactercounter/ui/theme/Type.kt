@@ -61,5 +61,6 @@ val Typography = Typography(
     titleLarge = textPreset1,
     labelLarge = textPreset1,
     labelMedium = textPreset3,
-    labelSmall = textPreset4
+    labelSmall = textPreset4,
+    titleSmall = textPreset2
 )

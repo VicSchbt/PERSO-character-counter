@@ -10,5 +10,7 @@ data class CharacterCounterState(
     val isCharacterLimitEnabled: Boolean = false,
     val characterLimit: Int? = null,
     val isLimitExceeded: Boolean = false,
-    val exceed: Int = 0
+    val exceed: Int = 0,
+    val letterDensity: Map<Char, Int> = emptyMap(),
+    val totalLetter: Int = 0
 )

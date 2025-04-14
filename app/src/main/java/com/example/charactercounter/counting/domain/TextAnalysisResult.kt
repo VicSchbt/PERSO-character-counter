@@ -4,7 +4,9 @@ data class TextAnalysisResult(
     val characterCount: Int,
     val wordCount: Int,
     val sentenceCount: Int,
-    val estimatedTimeReading: String? = null
+    val estimatedTimeReading: String? = null,
+    val letterDensity: Map<Char, Int> = mapOf(),
+    val totalLetter: Int
 ) {
     companion object {
         fun from(text: String, isBlankSpaceExcluded: Boolean): TextAnalysisResult {
@@ -26,11 +28,16 @@ data class TextAnalysisResult(
 
             val estimatedTimeReading = estimateReadingTime(wordCount)
 
+            val totalLetter = text.trim().split("\\s+".toRegex())
+                .joinToString("").length
+
             return TextAnalysisResult(
                 characterCount = characterCount,
                 wordCount = wordCount,
                 sentenceCount = sentenceCount,
-                estimatedTimeReading = estimatedTimeReading
+                estimatedTimeReading = estimatedTimeReading,
+                letterDensity = calculateLetterDensity(text),
+                totalLetter = totalLetter
             )
         }
 
@@ -45,6 +52,14 @@ data class TextAnalysisResult(
                 seconds in 1..30 -> "$minutes min"
                 else -> "${minutes + 1} min"
             }
+        }
+
+        private fun calculateLetterDensity(text: String): Map<Char, Int> {
+            return text
+                .lowercase()
+                .filter { it in 'a'..'z' }
+                .groupingBy { it }
+                .eachCount()
         }
     }
 }
