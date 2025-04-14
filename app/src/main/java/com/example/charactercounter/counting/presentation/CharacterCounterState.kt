@@ -5,6 +5,7 @@ data class CharacterCounterState(
     val characterCount: Int = 0,
     val wordCount: Int = 0,
     val sentenceCount: Int = 0,
+    val estimatedReadingTime: String? = null,
     val isBlankSpaceExcluded: Boolean = true,
     val isCharacterLimitEnabled: Boolean = false,
     val characterLimit: Int? = null,

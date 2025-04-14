@@ -72,6 +72,7 @@ fun CharacterCounterScreen(
                             )
                         }
                     )
+                    EstimatedReadingTime(state)
                 }
                 Column(
                     verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -80,29 +81,37 @@ fun CharacterCounterScreen(
                 }
             } else {
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(24.dp)
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    TextOptions(
-                        isBlankSpaceExcluded = state.isBlankSpaceExcluded,
-                        onIsBlankSpaceExcludedChange = {
-                            onAction(
-                                CharacterCounterAction.OnIsBlankSpaceExcludedChange(it)
-                            )
-                        },
-                        isCharacterLimitEnabled = state.isCharacterLimitEnabled,
-                        onCharacterLimitEnabledChange = {
-                            onAction(
-                                CharacterCounterAction.OnCharacterLimitEnabledChange(it)
-                            )
-                        },
-                        characterLimit = state.characterLimit?.toString().orEmpty(),
-                        onCharacterLimitChange = {
-                            onAction(
-                                CharacterCounterAction.OnCharacterLimitChange(it)
-                            )
-                        }
-                    )
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(24.dp)
+                    ) {
+                        TextOptions(
+                            isBlankSpaceExcluded = state.isBlankSpaceExcluded,
+                            onIsBlankSpaceExcludedChange = {
+                                onAction(
+                                    CharacterCounterAction.OnIsBlankSpaceExcludedChange(it)
+                                )
+                            },
+                            isCharacterLimitEnabled = state.isCharacterLimitEnabled,
+                            onCharacterLimitEnabledChange = {
+                                onAction(
+                                    CharacterCounterAction.OnCharacterLimitEnabledChange(it)
+                                )
+                            },
+                            characterLimit = state.characterLimit?.toString().orEmpty(),
+                            onCharacterLimitChange = {
+                                onAction(
+                                    CharacterCounterAction.OnCharacterLimitChange(it)
+                                )
+                            }
+                        )
+                    }
+                    EstimatedReadingTime(state)
                 }
+
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
@@ -112,6 +121,17 @@ fun CharacterCounterScreen(
         }
 
 
+    }
+}
+
+@Composable
+private fun EstimatedReadingTime(state: CharacterCounterState) {
+    if (state.estimatedReadingTime != null) {
+        Text(
+            text = stringResource(R.string.time_reading_label) + state.estimatedReadingTime,
+            style = MaterialTheme.typography.labelSmall,
+            modifier = Modifier.padding(start = 8.dp)
+        )
     }
 }
 
@@ -174,7 +194,8 @@ fun CharacterCounterScreenPreview() {
                 textToAnalyse = "",
                 isLimitExceeded = true,
                 wordCount = 350,
-                characterLimit = 300
+                characterLimit = 300,
+                estimatedReadingTime = "2 min"
             ),
             {},
             modifier = Modifier,

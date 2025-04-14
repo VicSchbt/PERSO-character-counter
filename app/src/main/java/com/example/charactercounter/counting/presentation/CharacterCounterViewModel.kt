@@ -45,6 +45,7 @@ class CharacterCounterViewModel : ViewModel() {
             characterCount = analysis.characterCount,
             wordCount = analysis.wordCount,
             sentenceCount = analysis.sentenceCount,
+            estimatedReadingTime = analysis.estimatedTimeReading,
             isLimitExceeded = exceeded,
             exceed = exceed
         )

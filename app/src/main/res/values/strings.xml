@@ -18,4 +18,5 @@
 
     <string name="letter_density_label">Letter Density</string>
     <string name="letter_density_placeholder">No characters found. Start typing to see letter density.</string>
+    <string name="time_reading_label">"Approx. reading time: "</string>
 </resources>
